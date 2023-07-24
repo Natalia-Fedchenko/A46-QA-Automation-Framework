@@ -1,88 +1,62 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
-
 public class LoginTests extends BaseTest {
+
     @Test
     public void LoginEmptyEmailPasswordTest() {
-//prereq
-//      Added ChromeOptions argument below to fix websocket error
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//step1
-        String url = "https://qa.koel.app/";
-        driver.get(url);
-//Assertion
-        Assert.assertEquals(driver.getCurrentUrl(),"https://qa.koel.app/registration.php");
-        driver.quit();
+       //Assertion
+        Assert.assertEquals(driver.getCurrentUrl(),"https://qa.koel.app/");
     }
-    @Test
-    public void ValidLoginTest() throws InterruptedException {
-//prereq
-//      Added ChromeOptions argument below to fix websocket error
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-//step1. Get URL
-        String url = "https://qa.koel.app/";
-        driver.get(url);
+
+    @Test (description = "Test is checking happy path Login with correct details")
+    public void ValidLoginTest()  {
 //step2. Enter Email
-        WebElement email= driver.findElement(By.cssSelector("[type='email']"))   ;
-        email.click();
-        email.clear();
-        email.sendKeys("demo@class.com");
+        enterEmail("demo@class.com");
 //step3. Enter Password
-        WebElement password= driver.findElement(By.cssSelector("[type='password']"))   ;
-        password.click();
-        password.clear();
-        password.sendKeys("te$t$tudent");
+        enterPassword("te$t$tudent");
 //step4. Click submit
-        WebElement submit = driver.findElement(By.cssSelector("[type='submit']"))      ;
-        submit.click();
+       clickSubmit();
 //Assertion - Compare expect and actual
-//        Assert.assertEquals(driver.getCurrentUrl(), url );
-        WebElement avatar= driver.findElement(By.className("[class='avatar']"));
+        WebElement avatar= driver.findElement(By.className("avatar"));
         Assert.assertTrue(avatar.isDisplayed());
-        driver.quit();
     }
 
+
     @Test
-    public void InValidPasswordTest() throws InterruptedException {
-//prereq
-//      Added ChromeOptions argument below to fix websocket error
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-//step1. Get URL
-        String url = "https://qa.koel.app/";
-        driver.get(url);
+    public void inValidPasswordTest() throws InterruptedException {
 //step2. Enter Email
-        WebElement email= driver.findElement(By.cssSelector("[type='email']"))   ;
-        email.click();
-        email.clear();
-        email.sendKeys("demo@class.com");
+        enterEmail("demo@class.com");
 //step3. Enter Password
-        WebElement password= driver.findElement(By.cssSelector("[type='password']"))   ;
-        password.click();
-        password.clear();
-        password.sendKeys("");
+        enterPassword("");
 //step4. Click submit
-        WebElement submit = driver.findElement(By.cssSelector("[type='submit']"))      ;
-        submit.click();
+        clickSubmit();
 //Assertion - Compare expected and actual
         Thread.sleep(2000);
-        Assert.assertEquals(driver.getCurrentUrl(), url );
-        driver.quit();
+        Assert.assertEquals(driver.getCurrentUrl(), baseUrl);
+    }
+    @Test
+    public void changeUserName() throws InterruptedException {
+//step2. Enter Email
+        enterEmail("demo@class.com");
+//step3. Enter Password
+        enterPassword("te$t$tudent");
+//step4. Click submit
+        clickSubmit();
+//step5. Click on Avatar
+        Thread.sleep(3000);
+        WebElement avatar = driver.findElement(By.cssSelector("span[class='name']"));
+        avatar.click();
+//Step6.Enter Name, Password, New Password, email
+        enterText(By.id("inputProfileName"),getRandomString());
+        enterText(By.id("inputProfileCurrentPassword"),"te$t$tudent");
+        enterText(By.id("inputProfileNewPassword"),"te$t$tudent");
+        enterText(By.id("inputProfileEmail"),"demo@class.com");
+//Step7. Click Submit  - To be completed
+//        clickSubmit();
+//Step8. Assertion - verify the name  - To be completed
+
     }
 }
