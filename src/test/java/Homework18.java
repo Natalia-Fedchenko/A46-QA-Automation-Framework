@@ -11,12 +11,12 @@ public class Homework18 extends BaseTest{
     }
 
     void clickPlaySong() throws InterruptedException {
-        driver.findElement(By.cssSelector("[data-test-id='play-next-btn']")).click();
-        Thread.sleep(3000);
-        driver.findElement(By.cssSelector("[data-test-id='play-btn']")).click();
-        Thread.sleep(3000);
+        driver.findElement(By.cssSelector("[data-testid='play-next-btn']")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.cssSelector("[data-testid='play-btn']")).click();
+        Thread.sleep(2000);
     }
     void assertSongIsPlaying() {
-       Assert.assertTrue( driver.findElement(By.cssSelector("[data-test-id='sound-bar-play']")).isDisplayed());
+       Assert.assertTrue( driver.findElement(By.cssSelector("[data-testid='sound-bar-play']")).isDisplayed());
         }
 }
