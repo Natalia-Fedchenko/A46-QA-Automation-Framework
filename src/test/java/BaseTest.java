@@ -1,16 +1,13 @@
 import com.github.hemanthsridhar.CSVUtils;
 import com.github.hemanthsridhar.lib.ExtUtils;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import java.time.Duration;
 import java.util.UUID;
@@ -67,6 +64,13 @@ public class BaseTest {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
+
+    public void validLogin()  {
+        enterEmail("demo@class.com");
+        enterPassword("te$t$tudent");
+        clickSubmit();
+    }
+
 
     @DataProvider(name = "invalidLoginProviders")
     public Object[][] getDataFromDataProviders() {
