@@ -1,0 +1,14 @@
+@BeforeMethod
+    @Parameters({"baseUrl"})
+    void setUpTest(String baseUrl) {
+        //prereq
+//      Added ChromeOptions argument below to fix websocket error
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+//        baseUrl = "https://qa.koel.app/";
+        this.baseUrl = baseUrl;
+        driver.get(baseUrl);
+    }
