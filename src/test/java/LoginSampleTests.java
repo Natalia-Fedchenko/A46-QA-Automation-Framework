@@ -88,10 +88,8 @@ public class LoginSampleTests extends BaseTest {
         WebElement submitBtn=driver.findElement(cssSelector("[type='submit']"));
         submitBtn.click();
 
-        //checking Avatar is displayed
-//
-//        WebElement avatar=driver.findElement(cssSelector(".avatar"));
-        Assert.assertTrue(submitBtn.isDisplayed(),"Logged in but not suppossed to");
+       //check url did not change
+        Assert.assertEquals(driver.getCurrentUrl(),url);
 //        driver.quit();
     }
 }
