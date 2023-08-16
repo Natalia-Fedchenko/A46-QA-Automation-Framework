@@ -24,4 +24,4 @@ test {
 //    useTestNG() {
 //        suites "src/test/resources/Homework.xml"
 //    }
-}
+//}
