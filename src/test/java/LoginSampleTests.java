@@ -62,7 +62,7 @@ public class LoginSampleTests extends BaseTest {
     }
 
     @Test
-    public void InvalidLoginTest() {
+    public void InvalidLoginTest() throws InterruptedException {
 
 //        Added ChromeOptions argument below to fix websocket error
         ChromeOptions options = new ChromeOptions();
@@ -88,8 +88,9 @@ public class LoginSampleTests extends BaseTest {
         WebElement submitBtn=driver.findElement(cssSelector("[type='submit']"));
         submitBtn.click();
 
+        Thread.sleep(3000);
        //check url did not change
         Assert.assertEquals(driver.getCurrentUrl(),url);
-//        driver.quit();
+        driver.quit();
     }
 }
