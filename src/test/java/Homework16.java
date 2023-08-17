@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class LoginTests extends BaseTest {
+public class Homework16 extends BaseTest {
     @Test
     public void loginValidEmailPasswordTest() {
 ///Given I have set and opened the browser
